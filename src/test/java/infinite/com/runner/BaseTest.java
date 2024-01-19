@@ -8,22 +8,20 @@ public class BaseTest {
 
     protected WebDriver driver;
     protected TestData testData;
+    protected String baseUrl;
 
     @BeforeMethod
     protected void beforeMethod() {
+        testData = ProjectUtils.readTestDataFromJson("src/test/java/infinite/com/data/TestData.json");
+        setBaseUrl();
         startDriver();
     }
 
-    @BeforeMethod
-    protected void beforeTestMethod() {
-        testData = ProjectUtils.readTestDataFromJson("src/test/java/infinite/com/data/TestData.json");
-        startDriver();
-    }
     @AfterMethod
     protected void afterMethod() {
         closeDriver();
-
     }
+
     protected void startDriver() {
         ProjectUtils.log("Browser open");
         driver = ProjectUtils.createDriver();
@@ -43,9 +41,22 @@ public class BaseTest {
 
     protected void getWeb() {
         ProjectUtils.log("Get web page");
-        ProjectUtils.get(driver);
+        ProjectUtils.get(driver,baseUrl);
     }
+
+
+private void setBaseUrl() {
+    switch (getClass().getSimpleName()) {
+        case "GoogleTest" -> baseUrl = "https://www.google.com";
+        case "BingTest" -> baseUrl = "https://www.bing.com";
+        case "YahooTest" -> baseUrl = "https://www.yahoo.com";
+        default -> baseUrl = "https://www.google.com";
+    }
+}
+
+
     protected WebDriver getDriver() {
         return driver;
     }
 }
+

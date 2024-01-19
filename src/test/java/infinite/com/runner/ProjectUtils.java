@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -17,8 +16,8 @@ public final class ProjectUtils {
         return new ChromeDriver(chromeOptions);
     }
 
-    static void get(WebDriver driver) {
-        driver.get("https://www.google.com");
+    static void get(WebDriver driver, String url) {
+        driver.get(url);
     }
 
     public static void log(String str) {
